@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألف هنا - لوحة التحكم</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<script>
+    // التحقق من وجود المستخدم
+    if (!sessionStorage.getItem('userId')) {
+        window.location.href = 'login.html'
+    }
+</script>
+
+    <header class="dashboard-header">
+        <div class="container">
+            <div class="welcome-message">
+                <h2>مرحباً <span id="userName"></span>!</h2>
+                <p>نوع الحساب: <span id="userRole"></span></p>
+            </div>
+            <div class="user-actions">
+                <span class="user-badge" onclick="logout()">تسجيل خروج</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <div class="container">
+            <div class="dashboard-content">
+                <!-- القائمة الجانبية -->
+                <aside class="dashboard-sidebar">
+                    <ul>
+                        <li><a href="#" class="active" onclick="showSection('overview')">الرئيسية</a></li>
+                        <!-- أقسام المطعم -->
+                        <div id="restaurantMenu" style="display: none;">
+                            <li><a href="#" onclick="showSection('addFood')">➕ إضافة فائض</a></li>
+                            <li><a href="#" onclick="showSection('myListings')">📋 فوائضي</a></li>
+                            <li><a href="#" onclick="showSection('requests')">📬 الطلبات الواردة</a></li>
+                        </div>
+                        <!-- أقسام الجمعية/المتطوع -->
+                        <div id="charityMenu" style="display: none;">
+                            <li><a href="#" onclick="showSection('available')">🍲 فوائض متاحة</a></li>
+                            <li><a href="#" onclick="showSection('myRequests')">📦 طلباتي</a></li>
+                        </div>
+                    </ul>
+                </aside>
+
+                <!-- المحتوى الرئيسي -->
+                <main class="dashboard-main">
+                    <div id="dashboardContent">
+                        <h3 id="dashboardTitle">لوحة التحكم</h3>
+                        
+                        <!-- أقسام المطعم -->
+                        <div id="restaurantSections" style="display: none;">
+                            <!-- قسم إضافة فائض -->
+                            <div id="addFoodSection" class="content-section" style="display: none;">
+                                <div class="section-header">
+                                    <h3>إضافة فائض طعام جديد</h3>
+                                </div>
+                                <form onsubmit="addFoodListing(event)">
+                                    <div class="form-group">
+                                        <label>اسم الوجبة/الطعام</label>
+                                        <input type="text" id="foodTitle" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>الكمية</label>
+                                        <input type="text" id="quantity" required placeholder="مثال: 10 وجبات">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>موعد الاستلام</label>
+                                        <input type="text" id="pickupTime" required placeholder="مثال: اليوم ٥ مساءً">
+                                    </div>
+                                    <button type="submit" class="btn-primary">إضافة</button>
+                                </form>
+                            </div>
+
+                            <!-- قسم فوائضي -->
+                            <div id="myListingsSection" class="content-section">
+                                <div class="section-header">
+                                    <h3>فوائضي المضافة</h3>
+                                    <button onclick="openAddFoodModal()" class="btn-primary">➕ إضافة جديد</button>
+                                </div>
+                                <div id="restaurantListings" class="food-grid"></div>
+                            </div>
+
+                            <!-- قسم الطلبات الواردة -->
+                            <div id="requestsSection" class="content-section" style="display: none;">
+                                <div class="section-header">
+                                    <h3>الطلبات الواردة</h3>
+                                </div>
+                                <div id="incomingRequests"></div>
+                            </div>
+                        </div>
+
+                        <!-- أقسام الجمعية/المتطوع -->
+                        <div id="charitySections" style="display: none;">
+                            <!-- قسم الفوائض المتاحة -->
+                            <div id="availableSection" class="content-section">
+                                <div class="section-header">
+                                    <h3>الفوائض المتاحة</h3>
+                                </div>
+                                <div id="availableListings" class="food-grid"></div>
+                            </div>
+
+                            <!-- قسم طلباتي -->
+                            <div id="myRequestsSection" class="content-section" style="display: none;">
+                                <div class="section-header">
+                                    <h3>طلباتي السابقة</h3>
+                                </div>
+                                <div id="myRequests"></div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </main>
+
+    <!-- نافذة إضافة فائض (منبثقة) -->
+    <div id="addFoodModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h3>إضافة فائض طعام</h3>
+            <form onsubmit="addFoodListing(event)">
+                <div class="form-group">
+                    <label>اسم الوجبة/الطعام</label>
+                    <input type="text" id="modalFoodTitle" required>
+                </div>
+                <div class="form-group">
+                    <label>الكمية</label>
+                    <input type="text" id="modalQuantity" required>
+                </div>
+                <div class="form-group">
+                    <label>موعد الاستلام</label>
+                    <input type="text" id="modalPickupTime" required>
+                </div>
+                <button type="submit" class="btn-primary">إضافة</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script src="dashboard.js"></script>
+    <script>
+        // دالة إظهار الأقسام المختلفة
+        function showSection(section) {
+            // إخفاء كل الأقسام
+            document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none')
+            
+            // إظهار القسم المطلوب
+            if (section === 'addFood') {
+                document.getElementById('addFoodSection').style.display = 'block'
+                document.getElementById('myListingsSection').style.display = 'none'
+                document.getElementById('requestsSection').style.display = 'none'
+            } else if (section === 'myListings') {
+                document.getElementById('addFoodSection').style.display = 'none'
+                document.getElementById('myListingsSection').style.display = 'block'
+                document.getElementById('requestsSection').style.display = 'none'
+                loadRestaurantListings()
+            } else if (section === 'requests') {
+                document.getElementById('addFoodSection').style.display = 'none'
+                document.getElementById('myListingsSection').style.display = 'none'
+                document.getElementById('requestsSection').style.display = 'block'
+                loadIncomingRequests()
+            } else if (section === 'available') {
+                document.getElementById('availableSection').style.display = 'block'
+                document.getElementById('myRequestsSection').style.display = 'none'
+                loadAvailableListings()
+            } else if (section === 'myRequests') {
+                document.getElementById('availableSection').style.display = 'none'
+                document.getElementById('myRequestsSection').style.display = 'block'
+                loadMyRequests()
+            }
+        }
+
+        // ربط دوال النافذة المنبثقة
+        function openAddFoodModal() {
+            document.getElementById('addFoodModal').classList.add('active')
+        }
+
+        function closeModal() {
+            document.getElementById('addFoodModal').classList.remove('active')
+        }
+
+        // تعديل دالة إضافة الطعام لتاخذ القيم من النافذة المنبثقة
+        async function addFoodListing(event) {
+            event.preventDefault()
+            
+            let title, quantity, pickupTime
+            
+            // التحقق من أي فورم تم استخدامه
+            if (event.target.id === 'addFoodModal') {
+                title = document.getElementById('modalFoodTitle').value
+                quantity = document.getElementById('modalQuantity').value
+                pickupTime = document.getElementById('modalPickupTime').value
+            } else {
+                title = document.getElementById('foodTitle').value
+                quantity = document.getElementById('quantity').value
+                pickupTime = document.getElementById('pickupTime').value
+            }
+
+            try {
+                const { error } = await supabaseClient
+                    .from('food_listings')
+                    .insert([
+                        {
+                            restaurant_id: userId,
+                            food_title: title,
+                            quantity: quantity,
+                            pickup_time: pickupTime,
+                            status: 'available'
+                        }
+                    ])
+
+                if (error) throw error
+
+                alert('✅ تم إضافة الفائض بنجاح')
+                closeModal()
+                
+                // تفريغ الحقول
+                if (event.target.id === 'addFoodModal') {
+                    document.getElementById('modalFoodTitle').value = ''
+                    document.getElementById('modalQuantity').value = ''
+                    document.getElementById('modalPickupTime').value = ''
+                } else {
+                    document.getElementById('foodTitle').value = ''
+                    document.getElementById('quantity').value = ''
+                    document.getElementById('pickupTime').value = ''
+                }
+                
+                await loadRestaurantListings()
+                
+            } catch (error) {
+                console.error('Error adding listing:', error)
+                alert('❌ حدث خطأ: ' + error.message)
+            }
+        }
+
+    function toggleMobileMenu() {
+        document.querySelector('.nav-links').classList.toggle('active')
+    }
+    </script>
+</body>
+</html>

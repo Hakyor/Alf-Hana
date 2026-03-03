@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألف هنا - عن المبادرة</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل المحسن -->
+    <nav class="navbar-modern">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>ألف <span>هنا</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="about.html" class="active">عن المبادرة</a>
+                <a href="index.html#how-it-works">كيف تعمل</a>
+                <a href="login.html" class="btn-outline-modern">دخول</a>
+                <a href="register.html" class="btn-primary-modern">انضم الآن</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- صفحة About محسنة -->
+    <section class="about-hero-modern">
+        <div class="container">
+            <div class="about-hero-content">
+                <span class="badge">قصتنا</span>
+                <h1>قصة <span class="gradient-text">ألف هنا</span></h1>
+                <p>مبادرة مصرية بدأت بفكرة بسيطة في شوارع دمياط وتحولت لمنصة وطنية للحد من هدر الطعام</p>
+                
+                <div class="about-quick-stats">
+                    <div>
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>انطلقت 2026</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>دمياط - مصر</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-heart"></i>
+                        <span>مبادرة غير ربحية</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#ffffff" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </section>
+
+    <!-- قصة المبادرة محسنة -->
+    <section class="about-story-modern">
+        <div class="container">
+            <div class="story-timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">فكرة</span>
+                        <h3>كيف بدأت الفكرة؟</h3>
+                        <p>في يوم من الأيام، كانت <strong>كرما أسامة أنيس</strong> تتجول في شوارع دمياط، ولاحظت شيئاً مؤلماً: مطاعم ترمي كميات ضخمة من الطعام الفائض في نهاية اليوم، وفي نفس الوقت هناك أسر محتاجة تبحث عن لقمة العيش.</p>
+                        <p>من هنا ولدت فكرة <strong>"ألف هنا"</strong> - منصة تكنولوجية تهدف إلى خلق جسر بين المطاعم التي لديها فائض طعام والجمعيات الخيرية التي يمكنها توصيل هذا الطعام للمحتاجين.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">تطوير</span>
+                        <h3>تحويل الفكرة لواقع</h3>
+                        <p>ولتحويل الفكرة إلى واقع ملموس، تعاونت <strong>كرما</strong> مع المبرمج المصري الشاب <strong>حمزة رامي الأكيابي</strong>، الذي آمن بالفكرة وقرر التطوع لبناء هذه المنصة باستخدام أحدث التقنيات.</p>
+                        <p>كان هذا المشروع أول تجربة عملية لحمزة في مجال التكنولوجيا الاجتماعية، وأثبت أن الشباب المصري قادر على الإبداع والابتكار لخدمة المجتمع.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">انطلاق</span>
+                        <h3>انطلاق المنصة</h3>
+                        <p>بعد أشهر من العمل والتطوير، انطلقت منصة "ألف هنا" رسمياً في 2026، وبدأت تستقطب المطاعم والجمعيات الخيرية من مختلف أنحاء مصر، محققة نجاحات مبشرة في الحد من هدر الطعام.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-quote-modern">
+                <i class="fas fa-quote-right"></i>
+                <p>"ما بدأناه بحلم بسيط، بقي اليوم منصة بتجمع آلاف الأشخاص حول هدف واحد: لا للهدر، نعم للتكافل"</p>
+                <div class="quote-author">
+                    <img src="K.jpeg" alt="كرما">
+                    <div>
+                        <h4>كرما أسامة أنيس</h4>
+                        <p>مؤسسة المبادرة</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- الفريق المؤسس المحسن -->
+    <section class="team-section-modern">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">الفريق المؤسس</span>
+                <h2 class="section-title">الأشخاص <span>وراء المبادرة</span></h2>
+                <p class="section-subtitle">شابان مصريان قررا استخدام مهاراتهما لخدمة المجتمع</p>
+            </div>
+
+            <div class="team-grid-modern">
+                <!-- كرما أسامة أنيس -->
+                <div class="team-card-modern">
+                    <div class="team-image-wrapper">
+                        <img src="K.jpeg" alt="كرما أسامة أنيس">
+                    </div>
+                        <div class="team-social">
+                            <a href="https://www.instagram.com/karmaaniss/"><i class="fab fa-instagram"></i></a>
+                        </div>                    
+                    <div class="team-info">
+                        <h3>كرما أسامة أنيس</h3>
+                        <p class="team-role">صاحبة الفكرة والمسؤولة</p>
+                        <p class="team-bio">رؤية إنسانية ملهمة تسعى لاستخدام التكنولوجيا في حل المشكلات المجتمعية. كرما هي من رأت الحاجة الماسة لمثل هذه المبادرة في المجتمع المصري.</p>
+                        <div class="team-achievements">
+                            <span><i class="fas fa-check-circle"></i> ١٠٠٠+ وجبة</span>
+                            <span><i class="fas fa-check-circle"></i> ٥٠+ مطعم</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- حمزة رامي الأكيابي -->
+                <div class="team-card-modern">
+                    <div class="team-image-wrapper">
+                        <img src="H.jpeg" alt="حمزة رامي الأكيابي">
+                        <div class="team-social">
+                            <a href="https://www.instagram.com/elekiaby_moza/"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3>حمزة رامي الأكيابي</h3>
+                        <p class="team-role">مبرمج ومطور المنصة</p>
+                        <p class="team-bio">مطور واجهات أمامية شاب، تطوع لبناء المنصة كأول مشروع عملي له. حمزة آمن بالفكرة وقرر وضع مهاراته في خدمة المجتمع.</p>
+                        <div class="team-achievements">
+                            <span><i class="fas fa-check-circle"></i> أول مشروع عملي</span>
+                            <span><i class="fas fa-check-circle"></i> تكنولوجيا اجتماعية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- القيم المحسنة -->
+    <section class="values-section-modern">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">قيمنا</span>
+                <h2 class="section-title">ما نؤمن <span>به</span></h2>
+            </div>
+
+            <div class="values-grid-modern">
+                <div class="value-card-modern">
+                    <div class="value-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>الإنسانية أولاً</h3>
+                    <p>نؤمن أن كل إنسان يستحق حياة كريمة، ونسعى لتحقيق ذلك من خلال تقليل الفجوة بين الفائض والمحتاج.</p>
+                </div>
+
+                <div class="value-card-modern">
+                    <div class="value-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>استدامة</h3>
+                    <p>نهدف للحد من هدر الطعام والحفاظ على الموارد الطبيعية من خلال إعادة توزيع الفائض.</p>
+                </div>
+
+                <div class="value-card-modern">
+                    <div class="value-icon">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <h3>تطوع</h3>
+                    <p>المشروع بدأ بتطوع ومازال يعتمد على المتطوعين في التوصيل والتنسيق.</p>
+                </div>
+
+                <div class="value-card-modern">
+                    <div class="value-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>تكافل</h3>
+                    <p>نريد بناء مجتمع متكافل حيث يكمل الجميع بعضهم البعض.</p>
+                </div>
+
+                <div class="value-card-modern">
+                    <div class="value-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>شمولية</h3>
+                    <p>نخدم جميع المحافظات المصرية دون تمييز، ونسعى للتوسع لتغطية أكبر.</p>
+                </div>
+
+                <div class="value-card-modern">
+                    <div class="value-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>ابتكار</h3>
+                    <p>نستخدم أحدث التقنيات لتسهيل عملية التبرع والتوصيل وجعلها أكثر كفاءة.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تواصل معنا المحسن -->
+    <section class="contact-section-modern">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info-modern">
+                    <span class="badge">تواصل معنا</span>
+                    <h2>نحن هنا <span>لخدمتك</span></h2>
+                    <p>لديك استفسار؟ تريد الانضمام للمبادرة؟ تواصل معنا بأي من الطرق التالية</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item-modern">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h4>البريد الإلكتروني</h4>
+                                <p>karmaaniss578@gmail.com</p>
+                                <small>نرد خلال ٢٤ ساعة</small>
+                            </div>
+                        </div>
+
+                        <div class="contact-item-modern">
+                            <i class="fas fa-phone-alt"></i>
+                            <div>
+                                <h4>الهاتف</h4>
+                                <p>+201067508419</p>
+                                <small>من ٩ صباحاً - ٥ مساءً</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-media">
+                        <h4>تابعنا على</h4>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-youtube"></i></a>
+                            <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-modern">
+                    <form id="contactForm">
+                        <h3>أرسل لنا رسالة</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" placeholder="الاسم الكامل" required>
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="البريد الإلكتروني" required>
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="الموضوع" required>
+                            <i class="fas fa-tag"></i>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="رسالتك..." rows="5" required></textarea>
+                            <i class="fas fa-pen"></i>
+                        </div>
+                        <button type="submit" class="btn-primary-modern btn-block">
+                            <i class="fas fa-paper-plane"></i>
+                            إرسال الرسالة
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل محسن -->
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>ألف هنا</h2>
+                    </div>
+                    <p>منصة مصرية تربط المطاعم بالجمعيات الخيرية للحد من هدر الطعام</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-left"></i> عن المبادرة</a></li>
+                        <li><a href="#how-it-works"><i class="fas fa-chevron-left"></i> كيف تعمل</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                </div>
+
+                <div class="footer-newsletter">
+                    <h3>النشرة البريدية</h3>
+                    <p>اشترك لتصلك آخر التحديثات وقصص النجاح</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="بريدك الإلكتروني">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 ألف هنا - مبادرة للحد من هدر الطعام | صنع بحب ❤️ في مصر</p>
+                <p class="developer">تم التطوير بواسطة <strong>حمزة رامي الأكيابي</strong> - أول مشروع عملي</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.querySelector('.nav-links').classList.toggle('active')
+        }
+    </script>
+</body>
+</html>

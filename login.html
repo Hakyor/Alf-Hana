@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألف هنا - تسجيل دخول</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>ألف هنا</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="register.html" class="btn-outline">تسجيل</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>تسجيل الدخول</h2>
+        <p class="form-subtitle">مرحباً بعودتك! سجل دخولك للمتابعة</p>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" required placeholder="example@domain.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" required placeholder="******">
+            </div>
+            
+            <button type="submit" class="btn-primary" style="width: 100%;">دخول</button>
+        </form>
+        
+        <div class="form-footer">
+            ليس لديك حساب؟ <a href="register.html">سجل الآن</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 ألف هنا - مبادرة للحد من هدر الطعام</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+
+            await login(email, password)
+        })
+    function toggleMobileMenu() {
+        document.querySelector('.nav-links').classList.toggle('active')
+    }
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألف هنا - تسجيل جديد</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h1>ألف هنا</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="login.html" class="btn-outline">دخول</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <h2>إنشاء حساب جديد</h2>
+        <p class="form-subtitle">انضم إلى منصة ألف هنا وكن جزءاً من الخير</p>
+        
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="name">الاسم الكامل</label>
+                <input type="text" id="name" required placeholder="أدخل اسمك الكامل">
+            </div>
+            
+            <div class="form-group">
+                <label for="email">البريد الإلكتروني</label>
+                <input type="email" id="email" required placeholder="example@domain.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">كلمة المرور</label>
+                <input type="password" id="password" required placeholder="******" minlength="6">
+            </div>
+            
+            <div class="form-group">
+                <label for="role">نوع الحساب</label>
+                <select id="role" required>
+                    <option value="">-- اختر نوع الحساب --</option>
+                    <option value="restaurant">مطعم</option>
+                    <option value="charity">جمعية خيرية</option>
+                    <option value="volunteer">متطوع</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-primary" style="width: 100%;">تسجيل</button>
+        </form>
+        
+        <div class="form-footer">
+            لديك حساب بالفعل؟ <a href="login.html">تسجيل الدخول</a>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 ألف هنا - مبادرة للحد من هدر الطعام</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault()
+            
+            const name = document.getElementById('name').value
+            const email = document.getElementById('email').value
+            const password = document.getElementById('password').value
+            const role = document.getElementById('role').value
+
+            await register(name, email, password, role)
+        })
+
+        // تعيين نوع الحساب من رابط الصفحة
+        const urlParams = new URLSearchParams(window.location.search)
+        const type = urlParams.get('type')
+        if (type) {
+            document.getElementById('role').value = type
+        }
+    function toggleMobileMenu() {
+        document.querySelector('.nav-links').classList.toggle('active')
+    }
+    </script>
+</body>
+</html>

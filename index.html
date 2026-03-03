@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ألف هنا - منصة فائض الطعام الخيرية</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- شريط التنقل المحسن -->
+    <nav class="navbar-modern">
+        <div class="container">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>ألف <span>هنا</span></h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">الرئيسية</a>
+                <a href="#how-it-works">كيف تعمل</a>
+                <a href="about.html">عن المبادرة</a>
+                <a href="login.html" class="btn-outline-modern">دخول</a>
+                <a href="register.html" class="btn-primary-modern">انضم الآن</a>
+            </div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- القسم الرئيسي المحسن -->
+    <header class="hero-modern">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="badge">مبادرة مصرية خيرية</span>
+                    <h1>نحو <span class="gradient-text">صفر هدر</span> للطعام</h1>
+                    <p>منصة تربط المطاعم التي لديها فائض طعام مع الجمعيات الخيرية والمتطوعين لتوصيله للمحتاجين</p>
+                    
+                    <div class="hero-stats-modern">
+                        <div class="stat-item">
+                            <i class="fas fa-utensils"></i>
+                            <div>
+                                <span class="stat-number">+٥٠</span>
+                                <span class="stat-label">مطعم</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-home"></i>
+                            <div>
+                                <span class="stat-number">+٢٠</span>
+                                <span class="stat-label">جمعية</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-hands-helping"></i>
+                            <div>
+                                <span class="stat-number">+٣٠</span>
+                                <span class="stat-label">متطوع</span>
+                            </div>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-utensil-spoon"></i>
+                            <div>
+                                <span class="stat-number">+١٠٠٠</span>
+                                <span class="stat-label">وجبة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <a href="register.html?type=restaurant" class="btn-primary-modern">
+                            <i class="fas fa-store"></i>
+                            انضم كمطعم
+                        </a>
+                        <a href="register.html?type=charity" class="btn-secondary-modern">
+                            <i class="fas fa-heart"></i>
+                            انضم كجمعية
+                        </a>
+                        <a href="register.html?type=volunteer" class="btn-outline-modern">
+                            <i class="fas fa-hands"></i>
+                            تطوع معنا
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-image">
+                    <img src="1.png" alt="تطوع يوزع الطعام">
+                    <div class="floating-card card-1">
+                        <i class="fas fa-check-circle"></i>
+                        <span>+١٠٠٠ وجبة</span>
+                    </div>
+                    <div class="floating-card card-2">
+                        <i class="fas fa-users"></i>
+                        <span>+١٠٠ مستفيد</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- كيف تعمل المنصة - تصميم حديث -->
+    <section id="how-it-works" class="how-it-works-modern">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">كيف تعمل</span>
+                <h2 class="section-title">ثلاث خطوات بسيطة <span>للخير</span></h2>
+                <p class="section-subtitle">منصة مبتكرة تسهل عملية التبرع بالطعام الفائض</p>
+            </div>
+
+            <div class="steps-modern">
+                <div class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-store-alt"></i>
+                        <div class="step-number">١</div>
+                    </div>
+                    <h3>المطعم يضيف الفائض</h3>
+                    <p>المطعم يسجل الدخول ويضيف تفاصيل الوجبات المتوفرة وموعد الاستلام بكل سهولة</p>
+                    <div class="step-features">
+                        <span><i class="fas fa-camera"></i> إضافة صور</span>
+                        <span><i class="fas fa-clock"></i> تحديد الوقت</span>
+                    </div>
+                </div>
+
+                <div class="step-connector">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <div class="step-number">٢</div>
+                    </div>
+                    <h3>الجمعية تطلب</h3>
+                    <p>الجمعيات والمتطوعين يشوفون الفوائض المتاحة ويطلبون ما يناسب احتياجاتهم</p>
+                    <div class="step-features">
+                        <span><i class="fas fa-bell"></i> إشعارات فورية</span>
+                        <span><i class="fas fa-map-marker-alt"></i> تحديد الموقع</span>
+                    </div>
+                </div>
+
+                <div class="step-connector">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+
+                <div class="step-item">
+                    <div class="step-icon">
+                        <i class="fas fa-truck"></i>
+                        <div class="step-number">٣</div>
+                    </div>
+                    <h3>تأكيد واستلام</h3>
+                    <p>المطعم يؤكد الطلب ويتم تنسيق عملية الاستلام والتوصيل عبر المتطوعين</p>
+                    <div class="step-features">
+                        <span><i class="fas fa-check-circle"></i> تأكيد فوري</span>
+                        <span><i class="fas fa-star"></i> تقييم التجربة</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="how-it-works-cta">
+                <a href="register.html" class="btn-primary-modern btn-large">
+                    <i class="fas fa-rocket"></i>
+                    ابدأ رحلة الخير الآن
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم المميزات -->
+    <section class="features-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">مميزاتنا</span>
+                <h2 class="section-title">لماذا تختار <span>ألف هنا؟</span></h2>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>سرعة وسهولة</h3>
+                    <p>واجهة بسيطة وسهلة الاستخدام لإضافة وطلب الطعام الفائض</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>موثوقية عالية</h3>
+                    <p>نظام تقييم ومراجعة لضمان جودة الخدمة والمصداقية</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>تغطية جغرافية</h3>
+                    <p>خدمتنا متوفرة في القاهرة الكبرى ودمياط والإسكندرية</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>تنسيق فوري</h3>
+                    <p>إشعارات فورية وتحديثات لحظية لحالة الطلبات</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>تقارير وإحصائيات</h3>
+                    <p>نظام تقارير متقدم لمتابعة تأثير تبرعاتك</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>تطبيق جوال</h3>
+                    <p>نسخة محمولة للوصول السريع من أي مكان</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم الشهادات -->
+    <section class="testimonials-section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-badge">آراء شركائنا</span>
+                <h2 class="section-title">ماذا يقولون <span>عن ألف هنا؟</span></h2>
+            </div>
+
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="K.jpeg" alt="كرما">
+                        <div>
+                            <h4>كرما أسامة أنيس</h4>
+                            <p>صاحبة المبادرة</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"الحلم بقى حقيقة... أشوف الفكرة اللي بدأت بملاحظة بسيطة في شوارع دمياط تتحول لمنصة بتخدم المجتمع كله"</p>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="H.jpeg" alt="حمزة">
+                        <div>
+                            <h4>حمزة رامي الأكيابي</h4>
+                            <p>مبرمج المنصة</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"شرفت إني أكون جزء من المشروع ده. التكنولوجيا ممكن تغير حياة ناس كتير، وأنا سعيد إني ساهمت"</p>
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- قسم التطوع -->
+    <section class="volunteer-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>كن جزءاً من التغيير</h2>
+                <p>انضم لفريق المتطوعين وساعد في توصيل الطعام للمحتاجين</p>
+                <div class="cta-stats">
+                    <div>
+                        <i class="fas fa-clock"></i>
+                        <span>ساعتين أسبوعياً</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>في منطقتك</span>
+                    </div>
+                    <div>
+                        <i class="fas fa-heart"></i>
+                        <span>تأثير حقيقي</span>
+                    </div>
+                </div>
+                <a href="register.html?type=volunteer" class="btn-primary-modern btn-large">
+                    <i class="fas fa-hands"></i>
+                    سجل كمتطوع
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- تذييل محسن -->
+    <footer class="footer-modern">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-info">
+                    <div class="logo">
+                        <i class="fas fa-utensils"></i>
+                        <h2>ألف هنا</h2>
+                    </div>
+                    <p>منصة مصرية تربط المطاعم بالجمعيات الخيرية للحد من هدر الطعام</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-links">
+                    <h3>روابط سريعة</h3>
+                    <ul>
+                        <li><a href="index.html"><i class="fas fa-chevron-left"></i> الرئيسية</a></li>
+                        <li><a href="about.html"><i class="fas fa-chevron-left"></i> عن المبادرة</a></li>
+                        <li><a href="#how-it-works"><i class="fas fa-chevron-left"></i> كيف تعمل</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-links">
+                </div>
+
+                <div class="footer-newsletter">
+                    <h3>النشرة البريدية</h3>
+                    <p>اشترك لتصلك آخر التحديثات وقصص النجاح</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="بريدك الإلكتروني">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2026 ألف هنا - مبادرة للحد من هدر الطعام | صنع بحب  في مصر</p>
+                <p class="developer">تم التطوير بواسطة <strong>حمزة رامي الأكيابي</strong> - أول مشروع عملي</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            document.querySelector('.nav-links').classList.toggle('active')
+        }
+    </script>
+</body>
+</html>
