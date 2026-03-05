@@ -6,244 +6,663 @@
     <title>ألف هنا - لوحة التحكم</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Tajawal','Segoe UI',sans-serif; background: #f0f2f5; }
+
+        /* ── TOP NAVBAR ── */
+        .top-navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            background: #fff; height: 60px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        .nb-left { display: flex; align-items: center; gap: 10px; }
+        .nb-logo { font-size: 20px; font-weight: 800; color: #2c3e50; }
+        .nb-logo span { color: #e67e22; }
+        .nb-right { display: flex; align-items: center; gap: 10px; }
+        .icon-btn {
+            position: relative; background: none; border: none; cursor: pointer;
+            font-size: 18px; color: #555; width: 38px; height: 38px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+        }
+        .icon-btn:hover { background: #f5f5f5; }
+        .notif-dot {
+            position: absolute; top: 5px; right: 5px; width: 8px; height: 8px;
+            background: #e74c3c; border-radius: 50%; display: none;
+        }
+        .user-av {
+            width: 36px; height: 36px; border-radius: 50%;
+            background: linear-gradient(135deg,#e67e22,#d35400);
+            color: #fff; font-size: 15px; font-weight: 700;
+            display: flex; align-items: center; justify-content: center; cursor: pointer;
+        }
+        .hamburger { background: none; border: none; cursor: pointer; font-size: 20px; color: #555; padding: 4px; display: none; }
+
+        /* ── SIDEBAR ── */
+        .sidebar {
+            position: fixed; top: 60px; right: 0; bottom: 0; width: 248px;
+            background: #fff; box-shadow: -2px 0 10px rgba(0,0,0,.06);
+            overflow-y: auto; z-index: 900; transition: transform .28s ease;
+        }
+        .sb-user { padding: 20px 16px 14px; border-bottom: 1px solid #f2f2f2; }
+        .sb-uname { font-size: 15px; font-weight: 700; color: #2c3e50; }
+        .sb-role {
+            display: inline-block; margin-top: 5px; padding: 2px 10px;
+            border-radius: 20px; font-size: 11.5px; font-weight: 600;
+            background: #fef3e2; color: #e67e22;
+        }
+        .sb-nav { padding: 8px 0; }
+        .sb-lbl { padding: 10px 16px 3px; font-size: 10px; font-weight: 700; color: #bbb; letter-spacing: 1px; text-transform: uppercase; }
+        .sb-link {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 16px; color: #555; font-size: 14px; font-weight: 500;
+            cursor: pointer; border: none; background: none; width: 100%; text-align: right;
+            transition: all .18s; position: relative; font-family: inherit;
+        }
+        .sb-link i { font-size: 15px; width: 18px; text-align: center; }
+        .sb-link:hover { background: #fef3e2; color: #e67e22; }
+        .sb-link.active { background: #fef3e2; color: #e67e22; font-weight: 700; }
+        .sb-link.active::before { content:''; position:absolute; right:0; top:0; bottom:0; width:3px; background:#e67e22; border-radius:3px 0 0 3px; }
+        .sb-badge { margin-right: auto; background: #e74c3c; color: #fff; font-size: 10px; font-weight: 700; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; padding: 0 4px; }
+        .sb-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.38); z-index: 899; }
+
+        /* ── MAIN ── */
+        .main { margin-right: 248px; margin-top: 60px; padding: 22px 18px; min-height: calc(100vh - 60px); }
+        .page-sec { display: none; }
+        .page-sec.active { display: block; animation: fadeIn .2s ease; }
+        @keyframes fadeIn { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+
+        /* ── CARDS ── */
+        .card { background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,.06); margin-bottom: 18px; }
+        .card-title { font-size: 17px; font-weight: 700; color: #2c3e50; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 2px solid #f2f2f2; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+        .ct-left { display: flex; align-items: center; gap: 8px; }
+
+        /* ── STATS ── */
+        .stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-bottom: 18px; }
+        .stat-w { background: #fff; border-radius: 13px; padding: 16px 18px; box-shadow: 0 2px 10px rgba(0,0,0,.06); display: flex; align-items: center; gap: 13px; }
+        .stat-ic { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .ic-or{background:#fef3e2;color:#e67e22} .ic-gr{background:#e8f8f5;color:#27ae60} .ic-bl{background:#e8f4fd;color:#2980b9} .ic-rd{background:#fdecea;color:#e74c3c}
+        .stat-val { font-size: 24px; font-weight: 800; color: #2c3e50; }
+        .stat-lbl { font-size: 12px; color: #888; margin-top: 1px; }
+
+        /* ── FOOD GRID ── */
+        .food-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(270px,1fr)); gap: 14px; }
+        .food-card { background: #fff; border-radius: 12px; padding: 16px; border: 1.5px solid #f0f0f0; transition: all .22s; }
+        .food-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(0,0,0,.09); border-color: #e67e22; }
+        .fc-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 11px; gap: 8px; }
+        .fc-title { font-size: 15.5px; font-weight: 700; color: #2c3e50; }
+        .fc-body p { font-size: 13px; color: #666; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
+        .fc-body p i { color: #e67e22; width: 14px; flex-shrink: 0; }
+        .fc-foot { margin-top: 12px; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+
+        /* ── PILLS ── */
+        .pill { padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; white-space: nowrap; }
+        .p-av{background:#e8f8f5;color:#27ae60} .p-rs{background:#fef9e7;color:#f39c12} .p-cl{background:#e8f4fd;color:#2980b9}
+        .p-pe{background:#fef9e7;color:#f39c12} .p-ap{background:#e8f8f5;color:#27ae60} .p-re{background:#fdecea;color:#e74c3c}
+
+        /* ── EXPIRY ── */
+        .exp { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 20px; display: inline-flex; align-items: center; gap: 3px; white-space: nowrap; }
+        .exp-ok{background:#e8f8f5;color:#27ae60} .exp-warn{background:#fef9e7;color:#f39c12} .exp-urg{background:#fdecea;color:#e74c3c}
+
+        /* ── BUTTONS ── */
+        .btn { padding: 7px 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 13px; font-weight: 600; transition: all .18s; display: inline-flex; align-items: center; gap: 5px; font-family: inherit; white-space: nowrap; }
+        .btn-or{background:#e67e22;color:#fff} .btn-or:hover{background:#d35400}
+        .btn-out{background:#fff;color:#e67e22;border:2px solid #e67e22} .btn-out:hover{background:#e67e22;color:#fff}
+        .btn-gr{background:#27ae60;color:#fff} .btn-gr:hover{background:#219a52}
+        .btn-rd{background:#e74c3c;color:#fff} .btn-rd:hover{background:#c0392b}
+        .btn-wa{background:#25D366;color:#fff} .btn-wa:hover{background:#1da851}
+        .btn-sm{padding:5px 10px;font-size:12px}
+
+        /* ── FORM ── */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+        .fg { margin-bottom: 13px; }
+        .fg label { display: block; font-size: 12.5px; font-weight: 600; color: #555; margin-bottom: 5px; }
+        .fg input,.fg select,.fg textarea { width: 100%; padding: 9px 12px; border: 1.5px solid #e0e0e0; border-radius: 9px; font-size: 13.5px; font-family: inherit; transition: border .18s; }
+        .fg input:focus,.fg select:focus,.fg textarea:focus { outline: none; border-color: #e67e22; box-shadow: 0 0 0 3px rgba(230,126,34,.1); }
+        .full { grid-column: 1/-1; }
+
+        /* ── REQUEST CARD ── */
+        .req-card { background: #fff; border-radius: 12px; padding: 16px; border: 1.5px solid #f0f0f0; margin-bottom: 12px; transition: all .2s; }
+        .req-card:hover { border-color: #e67e22; box-shadow: 0 5px 18px rgba(0,0,0,.07); }
+        .req-row { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+        .req-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        /* ── WHATSAPP BANNER ── */
+        .wa-banner {
+            background: linear-gradient(135deg,#25D366,#128C7E);
+            color: #fff; border-radius: 12px; padding: 16px 20px;
+            display: flex; align-items: center; gap: 14px; margin-bottom: 18px;
+        }
+        .wa-banner i { font-size: 32px; flex-shrink: 0; }
+        .wa-banner p { font-size: 14px; opacity: .9; margin-top: 3px; }
+        .wa-banner h4 { font-size: 16px; font-weight: 700; }
+
+        /* ── EMPTY ── */
+        .empty { text-align: center; padding: 46px 20px; color: #ccc; }
+        .empty i { font-size: 46px; margin-bottom: 12px; display: block; }
+        .empty p { font-size: 14.5px; }
+
+        /* ── TOAST ── */
+        .toast-wrap { position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; }
+        .toast { padding: 11px 16px; border-radius: 10px; color: #fff; font-size: 13px; font-weight: 500; display: flex; align-items: center; gap: 8px; box-shadow: 0 5px 18px rgba(0,0,0,.14); animation: slideUp .25s ease; min-width: 220px; }
+        @keyframes slideUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+        .t-ok{background:#27ae60} .t-err{background:#e74c3c} .t-inf{background:#3498db}
+
+        /* ── RATING MODAL ── */
+        .modal-ov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.42); z-index: 1200; align-items: center; justify-content: center; padding: 16px; }
+        .modal-ov.open { display: flex; }
+        .modal-box { background: #fff; border-radius: 18px; padding: 30px; max-width: 420px; width: 100%; animation: popIn .22s ease; text-align: center; }
+        @keyframes popIn { from{opacity:0;transform:scale(.93)} to{opacity:1;transform:scale(1)} }
+        .modal-box h3 { font-size: 18px; font-weight: 700; color: #2c3e50; margin-bottom: 6px; }
+        .modal-box > p { font-size: 13px; color: #888; margin-bottom: 20px; }
+        .stars { display: flex; gap: 6px; justify-content: center; margin-bottom: 16px; flex-direction: row-reverse; }
+        .star-b { font-size: 32px; color: #ddd; cursor: pointer; background: none; border: none; transition: color .14s; }
+        .star-b.on { color: #f39c12; }
+        .modal-acts { display: flex; gap: 10px; justify-content: flex-end; margin-top: 14px; }
+        .rating-inp { width: 100%; padding: 8px 12px; border: 1.5px solid #e0e0e0; border-radius: 9px; font-size: 13px; font-family: inherit; resize: none; margin-bottom: 4px; }
+        .rating-inp:focus { outline: none; border-color: #e67e22; }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:960px){
+            .sidebar{transform:translateX(100%)}
+            .sidebar.open{transform:translateX(0)}
+            .sb-overlay.open{display:block}
+            .main{margin-right:0}
+            .hamburger{display:block}
+            .stats-row{grid-template-columns:1fr 1fr}
+        }
+        @media(max-width:580px){
+            .stats-row{grid-template-columns:1fr 1fr}
+            .food-grid{grid-template-columns:1fr}
+            .form-grid{grid-template-columns:1fr}
+            .main{padding:14px 10px}
+            .top-navbar{padding:0 12px}
+            .stat-val{font-size:20px}
+            .card{padding:16px 14px}
+            .req-row{flex-direction:column}
+        }
+        @media(max-width:360px){
+            .stats-row{grid-template-columns:1fr}
+        }
+    </style>
 </head>
 <body>
-<script>
-    // التحقق من وجود المستخدم
-    if (!sessionStorage.getItem('userId')) {
-        window.location.href = 'login.html'
-    }
-</script>
+<script>if(!sessionStorage.getItem('userId'))window.location.href='login.html'</script>
 
-    <header class="dashboard-header">
-        <div class="container">
-            <div class="welcome-message">
-                <h2>مرحباً <span id="userName"></span>!</h2>
-                <p>نوع الحساب: <span id="userRole"></span></p>
-            </div>
-            <div class="user-actions">
-                <span class="user-badge" onclick="logout()">تسجيل خروج</span>
-            </div>
+<!-- TOP NAVBAR -->
+<nav class="top-navbar">
+    <div class="nb-left">
+        <button class="hamburger" onclick="toggleSb()"><i class="fas fa-bars"></i></button>
+        <div class="nb-logo">🍱 <span>ألف</span> هنا</div>
+    </div>
+    <div class="nb-right">
+        <div class="user-av" id="userAv" onclick="confirmLogout()" title="تسجيل خروج">?</div>
+    </div>
+</nav>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sb-overlay" id="sbOverlay" onclick="toggleSb()"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+    <div class="sb-user">
+        <div class="sb-uname" id="sbName">...</div>
+        <div class="sb-role" id="sbRole">...</div>
+    </div>
+    <nav class="sb-nav" id="sbNav"></nav>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+    <!-- OVERVIEW -->
+    <section class="page-sec active" id="sec-overview">
+        <div class="stats-row" id="statsRow"></div>
+        <div class="card">
+            <div class="card-title"><span class="ct-left"><i class="fas fa-clock" style="color:#e67e22"></i>آخر النشاطات</span></div>
+            <div id="recentAct"><div class="empty"><i class="fas fa-history"></i><p>لا يوجد نشاط حديث</p></div></div>
         </div>
-    </header>
+    </section>
 
-    <main class="dashboard">
-        <div class="container">
-            <div class="dashboard-content">
-                <!-- القائمة الجانبية -->
-                <aside class="dashboard-sidebar">
-                    <ul>
-                        <li><a href="#" class="active" onclick="showSection('overview')">الرئيسية</a></li>
-                        <!-- أقسام المطعم -->
-                        <div id="restaurantMenu" style="display: none;">
-                            <li><a href="#" onclick="showSection('addFood')">➕ إضافة فائض</a></li>
-                            <li><a href="#" onclick="showSection('myListings')">📋 فوائضي</a></li>
-                            <li><a href="#" onclick="showSection('requests')">📬 الطلبات الواردة</a></li>
-                        </div>
-                        <!-- أقسام الجمعية/المتطوع -->
-                        <div id="charityMenu" style="display: none;">
-                            <li><a href="#" onclick="showSection('available')">🍲 فوائض متاحة</a></li>
-                            <li><a href="#" onclick="showSection('myRequests')">📦 طلباتي</a></li>
-                        </div>
-                    </ul>
-                </aside>
-
-                <!-- المحتوى الرئيسي -->
-                <main class="dashboard-main">
-                    <div id="dashboardContent">
-                        <h3 id="dashboardTitle">لوحة التحكم</h3>
-                        
-                        <!-- أقسام المطعم -->
-                        <div id="restaurantSections" style="display: none;">
-                            <!-- قسم إضافة فائض -->
-                            <div id="addFoodSection" class="content-section" style="display: none;">
-                                <div class="section-header">
-                                    <h3>إضافة فائض طعام جديد</h3>
-                                </div>
-                                <form onsubmit="addFoodListing(event)">
-                                    <div class="form-group">
-                                        <label>اسم الوجبة/الطعام</label>
-                                        <input type="text" id="foodTitle" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>الكمية</label>
-                                        <input type="text" id="quantity" required placeholder="مثال: 10 وجبات">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>موعد الاستلام</label>
-                                        <input type="text" id="pickupTime" required placeholder="مثال: اليوم ٥ مساءً">
-                                    </div>
-                                    <button type="submit" class="btn-primary">إضافة</button>
-                                </form>
-                            </div>
-
-                            <!-- قسم فوائضي -->
-                            <div id="myListingsSection" class="content-section">
-                                <div class="section-header">
-                                    <h3>فوائضي المضافة</h3>
-                                    <button onclick="openAddFoodModal()" class="btn-primary">➕ إضافة جديد</button>
-                                </div>
-                                <div id="restaurantListings" class="food-grid"></div>
-                            </div>
-
-                            <!-- قسم الطلبات الواردة -->
-                            <div id="requestsSection" class="content-section" style="display: none;">
-                                <div class="section-header">
-                                    <h3>الطلبات الواردة</h3>
-                                </div>
-                                <div id="incomingRequests"></div>
-                            </div>
-                        </div>
-
-                        <!-- أقسام الجمعية/المتطوع -->
-                        <div id="charitySections" style="display: none;">
-                            <!-- قسم الفوائض المتاحة -->
-                            <div id="availableSection" class="content-section">
-                                <div class="section-header">
-                                    <h3>الفوائض المتاحة</h3>
-                                </div>
-                                <div id="availableListings" class="food-grid"></div>
-                            </div>
-
-                            <!-- قسم طلباتي -->
-                            <div id="myRequestsSection" class="content-section" style="display: none;">
-                                <div class="section-header">
-                                    <h3>طلباتي السابقة</h3>
-                                </div>
-                                <div id="myRequests"></div>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-            </div>
-        </div>
-    </main>
-
-    <!-- نافذة إضافة فائض (منبثقة) -->
-    <div id="addFoodModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h3>إضافة فائض طعام</h3>
-            <form onsubmit="addFoodListing(event)">
-                <div class="form-group">
-                    <label>اسم الوجبة/الطعام</label>
-                    <input type="text" id="modalFoodTitle" required>
+    <!-- ADD FOOD -->
+    <section class="page-sec" id="sec-addFood">
+        <div class="card">
+            <div class="card-title"><span class="ct-left"><i class="fas fa-plus-circle" style="color:#e67e22"></i>إضافة فائض طعام</span></div>
+            <form id="addFoodForm">
+                <div class="form-grid">
+                    <div class="fg"><label>اسم الوجبة / الطعام</label><input type="text" id="af-title" required placeholder="مثال: أرز بالدجاج"></div>
+                    <div class="fg"><label>الكمية</label><input type="text" id="af-qty" required placeholder="مثال: 15 وجبة"></div>
+                    <div class="fg"><label>موعد الاستلام</label><input type="text" id="af-pickup" required placeholder="اليوم الساعة 6 مساءً"></div>
+                    <div class="fg"><label>ينتهي خلال (ساعات)</label><input type="number" id="af-expiry" placeholder="4" min="1" max="72"></div>
+                    <div class="fg full"><label>ملاحظات إضافية</label><textarea id="af-notes" rows="2" placeholder="أي تفاصيل مهمة..."></textarea></div>
                 </div>
-                <div class="form-group">
-                    <label>الكمية</label>
-                    <input type="text" id="modalQuantity" required>
-                </div>
-                <div class="form-group">
-                    <label>موعد الاستلام</label>
-                    <input type="text" id="modalPickupTime" required>
-                </div>
-                <button type="submit" class="btn-primary">إضافة</button>
+                <button type="submit" class="btn btn-or"><i class="fas fa-plus"></i>إضافة الفائض</button>
             </form>
         </div>
+    </section>
+
+    <!-- MY LISTINGS -->
+    <section class="page-sec" id="sec-myListings">
+        <div class="card">
+            <div class="card-title">
+                <span class="ct-left"><i class="fas fa-list" style="color:#e67e22"></i>فوائضي المضافة</span>
+                <button class="btn btn-or btn-sm" onclick="showSec('addFood')"><i class="fas fa-plus"></i>إضافة جديد</button>
+            </div>
+            <div class="food-grid" id="myListingsGrid"><div class="empty" style="grid-column:1/-1"><i class="fas fa-utensils"></i><p>لا توجد فوائض بعد</p></div></div>
+        </div>
+    </section>
+
+    <!-- INCOMING REQUESTS -->
+    <section class="page-sec" id="sec-requests">
+        <div class="card">
+            <div class="card-title"><span class="ct-left"><i class="fas fa-inbox" style="color:#e67e22"></i>الطلبات الواردة</span></div>
+            <div id="inReqList"><div class="empty"><i class="fas fa-envelope-open"></i><p>لا توجد طلبات واردة</p></div></div>
+        </div>
+    </section>
+
+    <!-- AVAILABLE LISTINGS -->
+    <section class="page-sec" id="sec-available">
+        <div class="card">
+            <div class="card-title"><span class="ct-left"><i class="fas fa-heart" style="color:#e67e22"></i>الفوائض المتاحة</span></div>
+            <div class="food-grid" id="availGrid"><div class="empty" style="grid-column:1/-1"><i class="fas fa-search"></i><p>لا توجد فوائض متاحة الآن</p></div></div>
+        </div>
+    </section>
+
+    <!-- MY REQUESTS -->
+    <section class="page-sec" id="sec-myReqs">
+        <div class="card">
+            <div class="card-title"><span class="ct-left"><i class="fas fa-box" style="color:#e67e22"></i>طلباتي</span></div>
+            <div id="myReqList"><div class="empty"><i class="fas fa-box-open"></i><p>لا توجد طلبات سابقة</p></div></div>
+        </div>
+    </section>
+
+</main>
+
+<!-- RATING MODAL -->
+<div class="modal-ov" id="ratingModal">
+    <div class="modal-box">
+        <h3>⭐ تقييم التسليم</h3>
+        <p>كيف كانت تجربة استلام الطعام؟</p>
+        <div class="stars" id="starsRow">
+            <button class="star-b" data-v="1" onclick="setRating(1)">★</button>
+            <button class="star-b" data-v="2" onclick="setRating(2)">★</button>
+            <button class="star-b" data-v="3" onclick="setRating(3)">★</button>
+            <button class="star-b" data-v="4" onclick="setRating(4)">★</button>
+            <button class="star-b" data-v="5" onclick="setRating(5)">★</button>
+        </div>
+        <textarea id="ratingNote" class="rating-inp" rows="2" placeholder="تعليق (اختياري)..."></textarea>
+        <div class="modal-acts">
+            <button class="btn btn-out" onclick="closeRating()">إلغاء</button>
+            <button class="btn btn-or" onclick="submitRating()">إرسال</button>
+        </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="supabase.js"></script>
-    <script src="auth.js"></script>
-    <script src="dashboard.js"></script>
-    <script>
-        // دالة إظهار الأقسام المختلفة
-        function showSection(section) {
-            // إخفاء كل الأقسام
-            document.querySelectorAll('.content-section').forEach(el => el.style.display = 'none')
-            
-            // إظهار القسم المطلوب
-            if (section === 'addFood') {
-                document.getElementById('addFoodSection').style.display = 'block'
-                document.getElementById('myListingsSection').style.display = 'none'
-                document.getElementById('requestsSection').style.display = 'none'
-            } else if (section === 'myListings') {
-                document.getElementById('addFoodSection').style.display = 'none'
-                document.getElementById('myListingsSection').style.display = 'block'
-                document.getElementById('requestsSection').style.display = 'none'
-                loadRestaurantListings()
-            } else if (section === 'requests') {
-                document.getElementById('addFoodSection').style.display = 'none'
-                document.getElementById('myListingsSection').style.display = 'none'
-                document.getElementById('requestsSection').style.display = 'block'
-                loadIncomingRequests()
-            } else if (section === 'available') {
-                document.getElementById('availableSection').style.display = 'block'
-                document.getElementById('myRequestsSection').style.display = 'none'
-                loadAvailableListings()
-            } else if (section === 'myRequests') {
-                document.getElementById('availableSection').style.display = 'none'
-                document.getElementById('myRequestsSection').style.display = 'block'
-                loadMyRequests()
-            }
-        }
+<!-- TOAST -->
+<div class="toast-wrap" id="toastWrap"></div>
 
-        // ربط دوال النافذة المنبثقة
-        function openAddFoodModal() {
-            document.getElementById('addFoodModal').classList.add('active')
-        }
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="supabase.js"></script>
+<script src="auth.js"></script>
+<script>
+let userId, userRole, userName, userWhatsapp;
+let ratingReqId = null, ratingVal = 0;
 
-        function closeModal() {
-            document.getElementById('addFoodModal').classList.remove('active')
-        }
+// ── INIT ──
+document.addEventListener('DOMContentLoaded', async () => {
+    const s = await checkSession();
+    if (!s) { window.location.href = 'login.html'; return; }
 
-        // تعديل دالة إضافة الطعام لتاخذ القيم من النافذة المنبثقة
-        async function addFoodListing(event) {
-            event.preventDefault()
-            
-            let title, quantity, pickupTime
-            
-            // التحقق من أي فورم تم استخدامه
-            if (event.target.id === 'addFoodModal') {
-                title = document.getElementById('modalFoodTitle').value
-                quantity = document.getElementById('modalQuantity').value
-                pickupTime = document.getElementById('modalPickupTime').value
-            } else {
-                title = document.getElementById('foodTitle').value
-                quantity = document.getElementById('quantity').value
-                pickupTime = document.getElementById('pickupTime').value
-            }
+    userId       = sessionStorage.getItem('userId');
+    userRole     = sessionStorage.getItem('userRole');
+    userName     = sessionStorage.getItem('userName');
+    userWhatsapp = sessionStorage.getItem('userWhatsapp') || '';
 
-            try {
-                const { error } = await supabaseClient
-                    .from('food_listings')
-                    .insert([
-                        {
-                            restaurant_id: userId,
-                            food_title: title,
-                            quantity: quantity,
-                            pickup_time: pickupTime,
-                            status: 'available'
-                        }
-                    ])
+    document.getElementById('userAv').textContent  = (userName || '?').charAt(0);
+    document.getElementById('sbName').textContent  = userName || '';
+    document.getElementById('sbRole').textContent  = roleLabel(userRole);
 
-                if (error) throw error
+    buildSb();
+    buildStats();
+    loadRecent();
 
-                alert('✅ تم إضافة الفائض بنجاح')
-                closeModal()
-                
-                // تفريغ الحقول
-                if (event.target.id === 'addFoodModal') {
-                    document.getElementById('modalFoodTitle').value = ''
-                    document.getElementById('modalQuantity').value = ''
-                    document.getElementById('modalPickupTime').value = ''
-                } else {
-                    document.getElementById('foodTitle').value = ''
-                    document.getElementById('quantity').value = ''
-                    document.getElementById('pickupTime').value = ''
-                }
-                
-                await loadRestaurantListings()
-                
-            } catch (error) {
-                console.error('Error adding listing:', error)
-                alert('❌ حدث خطأ: ' + error.message)
-            }
-        }
-
-    function toggleMobileMenu() {
-        document.querySelector('.nav-links').classList.toggle('active')
+    if (userRole === 'restaurant') {
+        loadMyListings();
+        loadInReqs();
+    } else {
+        loadAvail();
+        loadMyReqs();
     }
-    </script>
+});
+
+// ── SIDEBAR ──
+function buildSb() {
+    const nav = document.getElementById('sbNav');
+    let h = `
+        <div class="sb-lbl">عام</div>
+        <button class="sb-link active" onclick="showSec('overview')"><i class="fas fa-home"></i>الرئيسية</button>`;
+
+    if (userRole === 'restaurant') {
+        h += `
+        <div class="sb-lbl">إدارة الفائض</div>
+        <button class="sb-link" onclick="showSec('addFood')"><i class="fas fa-plus-circle"></i>إضافة فائض</button>
+        <button class="sb-link" onclick="showSec('myListings')"><i class="fas fa-list"></i>فوائضي</button>
+        <button class="sb-link" onclick="showSec('requests')">
+            <i class="fas fa-inbox"></i>الطلبات الواردة
+            <span class="sb-badge" id="reqBadge" style="display:none">0</span>
+        </button>`;
+    } else {
+        h += `
+        <div class="sb-lbl">الفوائض</div>
+        <button class="sb-link" onclick="showSec('available')"><i class="fas fa-search"></i>الفوائض المتاحة</button>
+        <button class="sb-link" onclick="showSec('myReqs')"><i class="fas fa-box"></i>طلباتي</button>`;
+    }
+
+    h += `
+        <div class="sb-lbl">الحساب</div>
+        <button class="sb-link" style="color:#e74c3c" onclick="confirmLogout()"><i class="fas fa-sign-out-alt"></i>تسجيل خروج</button>`;
+    nav.innerHTML = h;
+}
+
+function showSec(id) {
+    document.querySelectorAll('.page-sec').forEach(s => s.classList.remove('active'));
+    const el = document.getElementById('sec-' + id);
+    if (el) el.classList.add('active');
+    document.querySelectorAll('.sb-link').forEach(l => l.classList.remove('active'));
+    const map = { overview:'الرئيسية', addFood:'إضافة', myListings:'فوائضي', requests:'الطلبات', available:'الفوائض', myReqs:'طلباتي' };
+    document.querySelectorAll('.sb-link').forEach(l => { if (l.textContent.trim().includes(map[id])) l.classList.add('active'); });
+    if (window.innerWidth <= 960) closeSb();
+}
+
+function toggleSb() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sbOverlay').classList.toggle('open'); }
+function closeSb()  { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sbOverlay').classList.remove('open'); }
+
+// ── STATS ──
+async function buildStats() {
+    let cards = [];
+    if (userRole === 'restaurant') {
+        const { data: ls } = await supabaseClient.from('food_listings').select('status').eq('restaurant_id', userId);
+        const av = (ls||[]).filter(l => l.status==='available').length;
+        const rs = (ls||[]).filter(l => l.status==='reserved').length;
+        const { data: allLs } = await supabaseClient.from('food_listings').select('id').eq('restaurant_id', userId);
+        let rqCount = 0;
+        if (allLs?.length) {
+            const { count } = await supabaseClient.from('requests').select('id', {count:'exact',head:true}).in('listing_id', allLs.map(l=>l.id));
+            rqCount = count || 0;
+        }
+        cards = [
+            { ic:'fa-utensils', cls:'ic-or', val:(ls||[]).length, lbl:'إجمالي الفوائض' },
+            { ic:'fa-check-circle', cls:'ic-gr', val:av, lbl:'متاح حالياً' },
+            { ic:'fa-clock', cls:'ic-bl', val:rs, lbl:'محجوز' },
+            { ic:'fa-inbox', cls:'ic-rd', val:rqCount, lbl:'طلبات واردة' },
+        ];
+    } else {
+        const { data: mr } = await supabaseClient.from('requests').select('status').eq('requester_id', userId);
+        const pe = (mr||[]).filter(r => r.status==='pending').length;
+        const ap = (mr||[]).filter(r => r.status==='approved').length;
+        const { count: avN } = await supabaseClient.from('food_listings').select('id', {count:'exact',head:true}).eq('status','available');
+        cards = [
+            { ic:'fa-search', cls:'ic-or', val:avN||0, lbl:'فوائض متاحة' },
+            { ic:'fa-paper-plane', cls:'ic-bl', val:(mr||[]).length, lbl:'طلباتي' },
+            { ic:'fa-hourglass-half', cls:'ic-rd', val:pe, lbl:'قيد الانتظار' },
+            { ic:'fa-check-circle', cls:'ic-gr', val:ap, lbl:'تمت الموافقة' },
+        ];
+    }
+    document.getElementById('statsRow').innerHTML = cards.map(c => `
+        <div class="stat-w">
+            <div class="stat-ic ${c.cls}"><i class="fas ${c.ic}"></i></div>
+            <div><div class="stat-val">${c.val}</div><div class="stat-lbl">${c.lbl}</div></div>
+        </div>`).join('');
+}
+
+// ── RECENT ──
+async function loadRecent() {
+    let items = [];
+    if (userRole === 'restaurant') {
+        const { data } = await supabaseClient.from('food_listings').select('food_title,created_at').eq('restaurant_id',userId).order('created_at',{ascending:false}).limit(5);
+        items = (data||[]).map(d => ({ icon:'fa-utensils', text:`أضفت فائض: ${d.food_title}`, time:ago(d.created_at) }));
+    } else {
+        const { data } = await supabaseClient.from('requests').select('created_at,food_listings(food_title)').eq('requester_id',userId).order('created_at',{ascending:false}).limit(5);
+        items = (data||[]).map(d => ({ icon:'fa-box', text:`طلبت: ${d.food_listings?.food_title}`, time:ago(d.created_at) }));
+    }
+    const el = document.getElementById('recentAct');
+    if (!items.length) { el.innerHTML=`<div class="empty"><i class="fas fa-history"></i><p>لا يوجد نشاط حديث</p></div>`; return; }
+    el.innerHTML = items.map(i => `
+        <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f5f5f5">
+            <div style="width:36px;height:36px;border-radius:9px;background:#fef3e2;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                <i class="fas ${i.icon}" style="color:#e67e22;font-size:14px"></i></div>
+            <div style="flex:1;font-size:13px;color:#2c3e50;font-weight:500">${i.text}</div>
+            <div style="font-size:11px;color:#bbb;white-space:nowrap">${i.time}</div>
+        </div>`).join('');
+}
+
+// ── MY LISTINGS ──
+async function loadMyListings() {
+    const { data } = await supabaseClient.from('food_listings').select('*').eq('restaurant_id',userId).order('created_at',{ascending:false});
+    const g = document.getElementById('myListingsGrid');
+    if (!data?.length) { g.innerHTML=`<div class="empty" style="grid-column:1/-1"><i class="fas fa-utensils"></i><p>لا توجد فوائض بعد</p></div>`; return; }
+    g.innerHTML = data.map(l => `
+        <div class="food-card">
+            <div class="fc-head">
+                <div class="fc-title">${l.food_title}</div>
+                <span class="pill ${pCls(l.status)}">${stLbl(l.status)}</span>
+            </div>
+            <div class="fc-body">
+                <p><i class="fas fa-box-open"></i>${l.quantity}</p>
+                <p><i class="fas fa-clock"></i>${l.pickup_time}</p>
+                ${l.notes ? `<p><i class="fas fa-sticky-note"></i>${l.notes}</p>` : ''}
+            </div>
+            <div class="fc-foot">
+                ${expBadge(l.expiry_hours, l.created_at)}
+                <span style="font-size:11px;color:#bbb;margin-right:auto">${ago(l.created_at)}</span>
+            </div>
+        </div>`).join('');
+}
+
+// ── ADD FOOD ──
+document.getElementById('addFoodForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title  = document.getElementById('af-title').value;
+    const qty    = document.getElementById('af-qty').value;
+    const pickup = document.getElementById('af-pickup').value;
+    const expiry = document.getElementById('af-expiry').value || null;
+    const notes  = document.getElementById('af-notes').value || null;
+
+    const { error } = await supabaseClient.from('food_listings').insert([{
+        restaurant_id: userId, food_title: title, quantity: qty,
+        pickup_time: pickup, status: 'available',
+        expiry_hours: expiry ? parseInt(expiry) : null, notes
+    }]);
+    if (error) { toast('❌ خطأ: ' + error.message, 'err'); return; }
+    toast('✅ تم إضافة الفائض!', 'ok');
+    e.target.reset();
+    loadMyListings(); buildStats(); showSec('myListings');
+});
+
+// ── INCOMING REQUESTS ──
+async function loadInReqs() {
+    const { data: ls } = await supabaseClient.from('food_listings').select('id').eq('restaurant_id',userId);
+    if (!ls?.length) { document.getElementById('inReqList').innerHTML=`<div class="empty"><i class="fas fa-envelope-open"></i><p>لا توجد طلبات واردة</p></div>`; return; }
+
+    const { data } = await supabaseClient.from('requests')
+        .select('*, food_listings(food_title), requester:users(name, whatsapp)')
+        .in('listing_id', ls.map(l=>l.id))
+        .order('created_at', {ascending:false});
+
+    const pe = (data||[]).filter(r => r.status==='pending').length;
+    const b = document.getElementById('reqBadge');
+    if (b) { b.style.display = pe ? 'flex' : 'none'; b.textContent = pe; }
+
+    const el = document.getElementById('inReqList');
+    if (!data?.length) { el.innerHTML=`<div class="empty"><i class="fas fa-envelope-open"></i><p>لا توجد طلبات واردة</p></div>`; return; }
+
+    el.innerHTML = data.map(r => `
+        <div class="req-card">
+            <div class="req-row">
+                <div>
+                    <div style="font-size:15px;font-weight:700;color:#2c3e50">${r.food_listings?.food_title||'-'}</div>
+                    <div style="font-size:12.5px;color:#888;margin-top:3px"><i class="fas fa-user" style="color:#e67e22"></i> ${r.requester?.name||'-'}</div>
+                    <div style="font-size:11px;color:#bbb;margin-top:2px">${ago(r.created_at)}</div>
+                </div>
+                <span class="pill ${rqCls(r.status)}">${rqLbl(r.status)}</span>
+            </div>
+            <div class="req-actions">
+                ${r.status==='pending' ? `
+                    <button class="btn btn-gr btn-sm" onclick="handleReq('${r.id}','approved')"><i class="fas fa-check"></i>موافقة</button>
+                    <button class="btn btn-rd btn-sm" onclick="handleReq('${r.id}','rejected')"><i class="fas fa-times"></i>رفض</button>` : ''}
+                ${r.requester?.whatsapp ? `
+                    <a href="https://wa.me/${cleanWa(r.requester.whatsapp)}?text=${encodeURIComponent('مرحباً، بخصوص طلب الفائض على منصة ألف هنا 🍱')}"
+                       target="_blank" class="btn btn-wa btn-sm">
+                        <i class="fab fa-whatsapp"></i>واتساب
+                    </a>` : `<span style="font-size:11.5px;color:#bbb">لا يوجد واتساب</span>`}
+            </div>
+        </div>`).join('');
+}
+
+async function handleReq(id, status) {
+    const { error } = await supabaseClient.from('requests').update({status}).eq('id',id);
+    if (error) { toast('❌ خطأ: '+error.message,'err'); return; }
+    if (status==='approved') {
+        const { data: r } = await supabaseClient.from('requests').select('listing_id').eq('id',id).single();
+        if (r) await supabaseClient.from('food_listings').update({status:'reserved'}).eq('id',r.listing_id);
+        toast('✅ تمت الموافقة','ok');
+    } else { toast('تم الرفض','inf'); }
+    loadInReqs(); buildStats();
+}
+
+// ── AVAILABLE LISTINGS ──
+async function loadAvail() {
+    const { data } = await supabaseClient.from('food_listings')
+        .select('*, restaurant:users(name, whatsapp)')
+        .eq('status','available')
+        .order('created_at',{ascending:false});
+
+    const g = document.getElementById('availGrid');
+    if (!data?.length) { g.innerHTML=`<div class="empty" style="grid-column:1/-1"><i class="fas fa-search"></i><p>لا توجد فوائض متاحة الآن</p></div>`; return; }
+
+    g.innerHTML = data.map(l => `
+        <div class="food-card">
+            <div class="fc-head">
+                <div class="fc-title">${l.food_title}</div>
+                ${expBadge(l.expiry_hours, l.created_at)}
+            </div>
+            <div class="fc-body">
+                <p><i class="fas fa-store"></i>${l.restaurant?.name||'-'}</p>
+                <p><i class="fas fa-box-open"></i>${l.quantity}</p>
+                <p><i class="fas fa-clock"></i>${l.pickup_time}</p>
+                ${l.notes ? `<p><i class="fas fa-sticky-note"></i>${l.notes}</p>` : ''}
+            </div>
+            <div class="fc-foot">
+                <button class="btn btn-or btn-sm" onclick="reqListing('${l.id}','${esc(l.food_title)}')">
+                    <i class="fas fa-hand-holding-heart"></i>طلب استلام
+                </button>
+                ${l.restaurant?.whatsapp ? `
+                    <a href="https://wa.me/${cleanWa(l.restaurant.whatsapp)}?text=${encodeURIComponent('مرحباً، رأيت فائضكم على منصة ألف هنا 🍱 هل لا يزال متاحاً؟')}"
+                       target="_blank" class="btn btn-wa btn-sm">
+                        <i class="fab fa-whatsapp"></i>تواصل
+                    </a>` : ''}
+            </div>
+        </div>`).join('');
+}
+
+async function reqListing(lid, ftitle) {
+    const { error } = await supabaseClient.from('requests').insert([{ listing_id:lid, requester_id:userId, status:'pending' }]);
+    if (error) { toast(error.code==='23505'?'⚠️ أرسلت طلباً لهذا الفائض مسبقاً':'❌ '+error.message,'err'); return; }
+    toast('✅ تم إرسال الطلب','ok');
+    loadAvail(); loadMyReqs(); buildStats();
+}
+
+// ── MY REQUESTS ──
+async function loadMyReqs() {
+    const { data } = await supabaseClient.from('requests')
+        .select('*, food_listings(food_title,quantity,pickup_time,restaurant:users(name,whatsapp))')
+        .eq('requester_id',userId)
+        .order('created_at',{ascending:false});
+
+    const el = document.getElementById('myReqList');
+    if (!data?.length) { el.innerHTML=`<div class="empty"><i class="fas fa-box-open"></i><p>لا توجد طلبات سابقة</p></div>`; return; }
+
+    el.innerHTML = data.map(r => `
+        <div class="req-card">
+            <div class="req-row">
+                <div>
+                    <div style="font-size:15px;font-weight:700;color:#2c3e50">${r.food_listings?.food_title||'-'}</div>
+                    <div style="font-size:12.5px;color:#888;margin-top:3px">
+                        <i class="fas fa-store" style="color:#e67e22"></i> ${r.food_listings?.restaurant?.name||'-'}
+                        &nbsp;|&nbsp;<i class="fas fa-box-open" style="color:#e67e22"></i> ${r.food_listings?.quantity||'-'}
+                    </div>
+                    <div style="font-size:11px;color:#bbb;margin-top:2px">${ago(r.created_at)}</div>
+                </div>
+                <span class="pill ${rqCls(r.status)}">${rqLbl(r.status)}</span>
+            </div>
+            <div class="req-actions">
+                ${r.status==='approved' && !r.rated ? `<button class="btn btn-out btn-sm" onclick="openRating('${r.id}')"><i class="fas fa-star"></i>تقييم</button>` : ''}
+                ${r.food_listings?.restaurant?.whatsapp ? `
+                    <a href="https://wa.me/${cleanWa(r.food_listings.restaurant.whatsapp)}?text=${encodeURIComponent('مرحباً، بخصوص طلب الفائض على منصة ألف هنا 🍱')}"
+                       target="_blank" class="btn btn-wa btn-sm">
+                        <i class="fab fa-whatsapp"></i>تواصل بالمطعم
+                    </a>` : ''}
+            </div>
+        </div>`).join('');
+}
+
+// ── RATING ──
+function openRating(rid) {
+    ratingReqId = rid; ratingVal = 0;
+    document.querySelectorAll('.star-b').forEach(b => b.classList.remove('on'));
+    document.getElementById('ratingNote').value = '';
+    document.getElementById('ratingModal').classList.add('open');
+}
+function closeRating() { document.getElementById('ratingModal').classList.remove('open'); }
+function setRating(v) {
+    ratingVal = v;
+    document.querySelectorAll('.star-b').forEach(b => b.classList.toggle('on', parseInt(b.dataset.v) <= v));
+}
+async function submitRating() {
+    if (!ratingVal) { toast('⚠️ اختر عدد النجوم','err'); return; }
+    const comment = document.getElementById('ratingNote').value;
+    const { error } = await supabaseClient.from('ratings').insert([{ request_id:ratingReqId, rating:ratingVal, comment, user_id:userId }]);
+    if (!error) {
+        await supabaseClient.from('requests').update({rated:true}).eq('id',ratingReqId);
+        toast('⭐ شكراً على تقييمك!','ok');
+        loadMyReqs();
+    } else { toast('❌ '+error.message,'err'); }
+    closeRating();
+}
+
+// ── HELPERS ──
+function roleLabel(r) { return {restaurant:'مطعم 🍽️',charity:'جمعية خيرية ❤️',volunteer:'متطوع 🤝'}[r]||r; }
+function stLbl(s)     { return {available:'متاح',reserved:'محجوز',collected:'تم الاستلام'}[s]||s; }
+function pCls(s)      { return {available:'p-av',reserved:'p-rs',collected:'p-cl'}[s]||'p-av'; }
+function rqLbl(s)     { return {pending:'قيد الانتظار',approved:'تمت الموافقة',rejected:'مرفوض'}[s]||s; }
+function rqCls(s)     { return {pending:'p-pe',approved:'p-ap',rejected:'p-re'}[s]||'p-pe'; }
+function cleanWa(n)   { return (n||'').replace(/[^0-9]/g,''); }
+function esc(t)       { return (t||'').replace(/'/g,"\\'"); }
+function expBadge(hours, created) {
+    if (!hours) return '';
+    const rem = hours - (Date.now() - new Date(created)) / 3600000;
+    if (rem <= 0)  return `<span class="exp exp-urg"><i class="fas fa-exclamation-triangle"></i>منتهي</span>`;
+    if (rem < 2)   return `<span class="exp exp-urg"><i class="fas fa-fire"></i>${rem.toFixed(1)}س</span>`;
+    if (rem < 5)   return `<span class="exp exp-warn"><i class="fas fa-clock"></i>${Math.ceil(rem)}س</span>`;
+    return              `<span class="exp exp-ok"><i class="fas fa-clock"></i>${Math.ceil(rem)}س</span>`;
+}
+function ago(d) {
+    if (!d) return '';
+    const s = (Date.now() - new Date(d)) / 1000;
+    if (s < 60)    return 'الآن';
+    if (s < 3600)  return `${Math.floor(s/60)} د`;
+    if (s < 86400) return `${Math.floor(s/3600)} س`;
+    return `${Math.floor(s/86400)} ي`;
+}
+function toast(msg, type='ok') {
+    const el = document.createElement('div');
+    el.className = `toast t-${type}`;
+    el.innerHTML = `<i class="fas fa-${type==='ok'?'check-circle':type==='err'?'times-circle':'info-circle'}"></i>${msg}`;
+    document.getElementById('toastWrap').appendChild(el);
+    setTimeout(() => el.remove(), 3200);
+}
+function confirmLogout() { if (confirm('هل تريد تسجيل الخروج؟')) logout(); }
+</script>
 </body>
 </html>
